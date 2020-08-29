@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 /**/
+
+/* Auth routes */
+Auth::routes();
+
+
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/', function () {
         return view('home');
@@ -42,9 +47,15 @@ Route::group(['middleware' => 'auth'], function() {
         return view('data.basic.brands');
     })->name('brands_page');
 
-    /**/
+    /* start transactions */
 
-    /* ajax crud routes */
+    Route::get('/purcahse_invoice', function () {
+        return view('transactions.purchase_invoice');
+    })->name('purchase_invioces_page');
+
+    /* end transactions*/
+
+    /* start ajax crud routes */
 
     Route::resource('/customers', 'CustomerController');
 
@@ -60,9 +71,25 @@ Route::group(['middleware' => 'auth'], function() {
 
 
 
+
+
     Route::get('/cat/show', 'SubcategoryController@show')->name('show_cat');
     Route::get('/subcat/show', 'ProductController@subcategory')->name('show_subcat');
     Route::get('/brand/show', 'ProductController@brand')->name('show_brand');
+//    Route::get('/invoice/show_customer', 'InvoiceController@showCustomer')->name('show_customer');
+//    Route::get('/invoice/show_supplier', 'InvoiceController@showSupplier')->name('show_supplier');
+//    Route::get('/invoice/show_product', 'InvoiceController@showProduct')->name('show_product');
+
+    /*end ajax crud routes */
+
+
+
+
+    Route::resource('/cart','CartController');
+    Route::get('/cart/{cart}',"CartController@deleteRow")->name('cart.deleterow');
+    Route::get('/purchase_invoice/data_tables','PurchaseInvoiceController@datatables')->name('purchase_invoice.datatables');
+    Route::get('/purchase_invoice/search','PurchaseInvoiceController@searchForSupplier')->name('purchase_invoice.searchforsupplier');
+    Route::resource('/purchase_invoice','PurchaseInvoiceController');
 
 
 
@@ -73,8 +100,6 @@ Route::group(['middleware' => 'auth'], function() {
 /*end database routes */
 
 
-/* Auth routes */
-Auth::routes();
 
 
 

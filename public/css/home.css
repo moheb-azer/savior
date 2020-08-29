@@ -1,12 +1,14 @@
 
 *{
-    /*font-size: 1.01em !important;*/
+    font-size: 1.01em ;
+    font-family: 'Markazi Text', serif;
 }
 
 body{
     background-color: rgb(250,250,250) ;
     /*font-family: 'Amiri', serif;*/
     font-family: 'Markazi Text', serif;
+    /*font-size: 1.5em !important;*/
 
 
 }
@@ -31,123 +33,26 @@ div.dataTables_scrollBody {
 .fa-trash-alt {
     color: #dc3545;
 }
+/* start scrollbar*/
+/* width */
+*::-webkit-scrollbar {
+    width: 6px !important;
+}
 
+/* Track */
+*::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey !important;
+    border-radius: 5px !important;
+}
 
-/*{{--                                <div class="form-group">--}}*/
-/*{{--                                    @if(count($errors)>0)--}}*/
-/*{{--                                        <ul>--}}*/
-/*{{--                                            @foreach($errors->all() as $error)--}}*/
-/*{{--                                                <li>{{$error}}</li>--}}*/
-/*{{--                                            @endforeach--}}*/
-/*{{--                                        </ul>--}}*/
-/*{{--                                    @endif--}}*/
-/*{{--                                </div>--}}*/
+/* Handle */
+*::-webkit-scrollbar-thumb {
+    background: #808080 !important;
+    border-radius: 10px !important;
+}
 
-
-
-/*
-<button type="button" class="btn btn-success" data-toggle="modal" data-target="#edit" id="editBtn">Edit</button>--}}
-{{--                    <!-- Edit Modal -->--}}
-{{--                    <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="editTitle" aria-hidden="true">--}}
-{{--                        <div class="modal-dialog modal-dialog-scrollable" role="document">--}}
-{{--                            <div class="modal-content">--}}
-{{--                                <div class="modal-header">--}}
-{{--                                    <h5 class="modal-title" id="exampleModalScrollableTitle">Edit</h5>--}}
-{{--                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
-{{--                                        <span aria-hidden="true">&times;</span>--}}
-{{--                                    </button>--}}
-{{--                                </div>--}}
-{{--                                <div class="modal-body">--}}
-{{--                                    <form class="form">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <lable>الكود</lable>--}}
-{{--                                            <input class="form-control" type="text" name="center_id" id="center_id" disabled value="{{$center->id}}">--}}
-{{--                                        </div>--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <lable>اسم المركز/المدرب</lable>--}}
-{{--                                            <input class="form-control" type="text" name="center_name" id="center_name" value="{{$center->center_name}}">--}}
-{{--                                        </div>--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <lable>رقم التليفون</lable>--}}
-{{--                                            <input class="form-control" type="text">--}}
-{{--                                        </div>--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <lable>ايميل المركز(ان وجد)</lable>--}}
-{{--                                            <input class="form-control" type="email">--}}
-{{--                                        </div>--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <lable>مسئول التواصل</lable>--}}
-{{--                                            <input class="form-control" type="text">--}}
-{{--                                        </div>--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <lable>رقم تليفون مسئول التواصل</lable>--}}
-{{--                                            <input class="form-control" type="text">--}}
-{{--                                        </div>--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <lable>ايميل مسئول التواصل (ان وجد)</lable>--}}
-{{--                                            <input class="form-control" type="email">--}}
-{{--                                        </div>--}}
-{{--                                    </form>--}}
-{{--                                </div>--}}
-{{--                                <div class="modal-footer">--}}
-{{--                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--}}
-{{--                                    <button type="button" class="btn btn-primary" id="addNew">Save</button>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-*/
-
-
-/*
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable">
-            اضافة مركز جديد
-        </button>
-
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalScrollableTitle"> اضافة مركز جديد</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form class="form">
-                            <div class="form-group">
-                                <lable>اسم المركز/المدرب</lable>
-                                <input class="form-control" type="text" name="center_name">
-                            </div>
-                            <div class="form-group">
-                                <lable>رقم التليفون</lable>
-                                <input class="form-control" type="text">
-                            </div>
-                            <div class="form-group">
-                                <lable>ايميل المركز(ان وجد)</lable>
-                                <input class="form-control" type="email">
-                            </div>
-                            <div class="form-group">
-                                <lable>مسئول التواصل</lable>
-                                <input class="form-control" type="text">
-                            </div>
-                            <div class="form-group">
-                                <lable>رقم تليفون مسئول التواصل</lable>
-                                <input class="form-control" type="text">
-                            </div>
-                            <div class="form-group">
-                                <lable>ايميل مسئول التواصل (ان وجد)</lable>
-                                <input class="form-control" type="email">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="addNew">Save</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
- */
+/* Handle on hover */
+*::-webkit-scrollbar-thumb:hover {
+    background: #000000 !important;
+}
+/* end scrollbar*/

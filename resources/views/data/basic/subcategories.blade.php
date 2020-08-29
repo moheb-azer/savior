@@ -87,7 +87,7 @@
     <script type="text/javascript">
 
         let dataTable =$('#datatable');
-        let modat = $("#formModal");
+        let modal = $("#formModal");
         let validateAlert =$('#validation').hide();
         let saveBtn =$("#save").show();
         let updateBtn= $("#update").hide();

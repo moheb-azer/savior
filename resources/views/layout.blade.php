@@ -10,13 +10,16 @@
     <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/datatable/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/fontawesome/css/all.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Markazi+Text:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Markazi+Text:wght@900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('/css/home.css') }}">
 
     <script src="{{ asset('/js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('/js/popper.min.js') }}"></script>
     <script src="{{ asset('/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('/datatable/datatables.min.js') }}"></script>
+
+    @stack('css')
+    @stack('js')
 
 </head>
 <body>
@@ -40,6 +43,15 @@
                         <a class="dropdown-item" href="{{route('products_page') }}">Products</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{route('categories_page')}}">Basic Data</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown active">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Transcations
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{route('purchase_invioces_page')}}">Purchse Invioces</a>
+
                     </div>
                 </li>
 
