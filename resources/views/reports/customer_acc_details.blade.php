@@ -18,31 +18,48 @@
                     <div class="card">
                         <div class="card-header clearfix">
                             <h3 class="card-title float-left">
-                                Customer Accounts
+                                Customer Account Details
                             </h3>
 
                         </div>
                         <div class="card-body p-3">
-                                <table id="customerAcc" class="table table-bordered table-striped text-center mb-3 " style="width: 100%;">
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-{{--                                        <th>Customer Name</th>--}}
+                            <div>
+                                <label>Customter Name: {{$customer->c_name}} </label>
+                                <br>
+                                <label class="m-4">Phone 1: {{$customer->c_phone1}} </label>
+                                <label class="m-4">Phone 2: {{$customer->c_phone2}} </label>
+                            </div>
+                            <table id="customerAcc" class="table table-bordered table-striped text-center mb-3 " style="width: 100%;">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+{{--                                        <th>Customter Name</th>--}}
 {{--                                        <th>Phone 1</th>--}}
 {{--                                        <th>Phone 2</th>--}}
-                                        <th>Transaction</th>
-                                        <th>Transaction ID</th>
-                                        <th>date</th>
-                                        <th>total</th>
-                                        <th>Cash</th>
-                                        <th>Balance</th>
+                                    <th>Transaction</th>
+                                    <th>Transaction ID</th>
+                                    <th>date</th>
+                                    <th>total</th>
+                                    <th>Cash</th>
+                                    <th>Balance</th>
 {{--                                        <th>Actions</th>--}}
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($accounts as $account)
+                                        <tr>
+                                            <td>{{$account->id}}</td>
+                                            <td>{{$account->trans_type}}</td>
+                                            <td>{{$account->trans_id}}</td>
+                                            <td>{{$account->date}}</td>
+                                            <td>{{$account->total}}</td>
+                                            <td>{{$account->cash}}</td>
+                                            <td>{{$account->credit}}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
 
-                                </table>
+                            </table>
                         </div>
                     </div>
 
@@ -73,54 +90,6 @@
             }
         })
 
-        let customerTable = $('#customerAcc');
-
-        $(document).ready(function () {
-             let table = customerTable.DataTable({
-                "ajax": {
-                    "url": "{{ route('customer_accounts.show') }}",
-                    "dataSrc": "customers"
-                },
-                "columns": [
-                    {render: function (data, type, row, meta) {
-                            return meta.row + 1;}},
-                    // {"data":"c_name"},
-                    // {"data":"c_phone1"},
-                    // {"data":"c_phone2"},
-                    {"data":"trans_type"},
-                    {"data":"trans_id"},
-                    {"data":"date"},
-                    {"data":"total"},
-                    {"data":"cash"},
-                    {"data":"credit"},
-                    // {"data":""},
-                    // {"data":"id", render: function (data, type, row) {
-                    //         return "<button type='button' class='btn ml-4 p-0 ' " +
-                    //             "onclick='editData("+row.id +")' ><i class=\"btn btn-info \">details</i></button>"
-                    //
-                    //     }},
-                ],
-                responsive: false,
-                scrollY:       1000,
-                scrollX:        true,
-                scrollCollapse: true,
-                dom: "Bfrtip",
-                buttons: [
-                  //  'excel', 'print','pageLength',
-                    { "extend": 'excel', "text":'<span>Excel</span>',"className": 'btn btn-success btn-xs m-1 rounded'},
-                    { "extend": 'pageLength', "text":'<span>pageLength</span>',"className": 'btn btn-primary btn-xs m-1 rounded'},
-                ],
-                fixedHeader: true,
-                "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]],
-                processing:true,
-                serverSide:false,
-            });
-            table.on( 'order.dt search.dt', function () {
-                table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-                    cell.innerHTML = i+1;
-                });
-            }).draw();
-        });
 
 
 

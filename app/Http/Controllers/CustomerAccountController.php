@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Customer;
 use App\CustomerAccount;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class CustomerAccountController extends Controller
 {
@@ -50,11 +54,14 @@ class CustomerAccountController extends Controller
      * Display the specified resource.
      *
      * @param  \App\CustomerAccount  $customerAccount
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function show(CustomerAccount $customerAccount)
     {
-        //
+
+        $accounts = CustomerAccount::where('c_id', '=', $customerAccount['id'] )->get();
+        $customer = Customer::find($customerAccount['id']);
+        return view('reports.customer_acc_details', compact('accounts','customer'));
     }
 
     /**

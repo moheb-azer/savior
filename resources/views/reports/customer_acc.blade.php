@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('pageTitle')
-    - customer accounts
+    - customers accounts
 @endsection
 
 @push('css')
@@ -18,7 +18,7 @@
                     <div class="card">
                         <div class="card-header clearfix">
                             <h3 class="card-title float-left">
-                                Customer Accounts
+                                Customers Accounts
                             </h3>
 
                         </div>
@@ -94,9 +94,8 @@
                     {"data":"credit"},
                     // {"data":""},
                     {"data":"id", render: function (data, type, row) {
-                            return "<button type='button' class='btn ml-4 p-0 ' href='/customer_accounts/"+row.id +"' " +
-
-                                "onclick='editData("+row.id +")' ><i class=\"btn btn-info \">details</i></button>"
+                            return "<a  class='btn btn-info ml-4 p-0 ' " +
+                                "href='customer_accounts/"+row.id +"' >details</a>"
 
                         }},
                 ],

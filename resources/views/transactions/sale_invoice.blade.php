@@ -328,7 +328,8 @@
 
 
         $(document).ready(function() {
-            let total = {{ Cart::instance('sale')->total( 2 ,'.','') }}
+            let total = {{ Cart::instance('sale')->total( 2 ,'.','') }};
+            let credit = $('#credit').val(0);
                 // add products to shopping list
                 $(document).on("click",".add_cart",function(e) {
                     e.preventDefault();
@@ -353,7 +354,7 @@
                             // salePrice.val('');
                             $('#cash').val(response.details.total);
                             total = response.details.total;
-                            $('#credit').val('');
+                            credit.val('0');
                         }
                     });
                 });
@@ -374,7 +375,7 @@
                         $(".total").html("Total : " + response.details.total + " LE");
                         $('#cash').val(response.details.total);
                         total = response.details.total;
-                        $('#credit').val('');
+                        credit.val('0');
                     }
                 });
             });
@@ -382,7 +383,7 @@
             $(document).on('change', '#cash', function () {
                 console.log(total);
                 let btotal = total.replace(',' , '');
-                $('#credit').val( btotal - $('#cash').val());
+                credit.val( btotal - $('#cash').val());
             });
             // method of payment
         });
