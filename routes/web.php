@@ -49,11 +49,26 @@ Route::group(['middleware' => 'auth'], function() {
 
     /* start transactions */
 
-    Route::get('/purcahse_invoice', function () {
+    Route::get('/purchase_invoices', function () {
         return view('transactions.purchase_invoice');
-    })->name('purchase_invioces_page');
+    })->name('purchase_invoice_page');
+
+    Route::get('/sale_invoice', function () {
+        return view('transactions.sale_invoice');
+    })->name('sale_invioces_page');
+
 
     /* end transactions*/
+    Route::get('/customers_accounts', function () {
+        return view('reports.customer_acc');
+    })->name('customer_acc_page');
+
+
+
+
+    /* start reports */
+
+    /* end reports */
 
     /* start ajax crud routes */
 
@@ -84,14 +99,27 @@ Route::group(['middleware' => 'auth'], function() {
 
 
 
-
+    /* purchase invoice */
     Route::resource('/cart','CartController');
     Route::get('/cart/{cart}',"CartController@deleteRow")->name('cart.deleterow');
     Route::get('/purchase_invoice/data_tables','PurchaseInvoiceController@datatables')->name('purchase_invoice.datatables');
     Route::get('/purchase_invoice/search','PurchaseInvoiceController@searchForSupplier')->name('purchase_invoice.searchforsupplier');
     Route::resource('/purchase_invoice','PurchaseInvoiceController');
 
+    /* purchase invoice */
 
+    /* sale invoice */
+    Route::get('/sale_invoice/data_tables','SaleInvoiceController@datatables')->name('sale_invoice.datatables');
+    Route::post('/cart_sale','CartController@storeSale')->name('cart_sale.store');
+    Route::get('/cart_sale/delete/{rowId}','CartController@deleteRowSale')->name('cart_sale.delete');
+    Route::get('/sale_invoice/search','SaleInvoiceController@searchForCustomer')->name('sale_invoice.searchforCustomer');
+    Route::resource('/sale_invoices','SaleInvoiceController');
+
+
+    /* sale invoice */
+
+    /* reports */
+    Route::resource('/customer_accounts', 'CustomerAccountController');
 
 
 });

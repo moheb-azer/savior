@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ asset('/fontawesome/css/all.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Markazi+Text:wght@900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('/css/home.css') }}">
+{{--    <link rel="stylesheet" href="{{ asset('assets/backend/css/adminlte.css') }}">--}}
 
     <script src="{{ asset('/js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('/js/popper.min.js') }}"></script>
@@ -23,7 +24,7 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark h-auto">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark h-auto sticky-top">
         <a class="navbar-brand" href="/">
             <img src="{{asset('/img/logo1.jpg')}}" class="rounded-circle" width="40" height="40" alt="Savior">
         </a>
@@ -39,7 +40,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{route('customers_page')}}">Customers</a>
-                        <a class="dropdown-item" href="{{route('suppliers_page')}}">ٍSuppliers</a>
+                        <a class="dropdown-item" href="{{route('suppliers_page')}}">Suppliers</a>
                         <a class="dropdown-item" href="{{route('products_page') }}">Products</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{route('categories_page')}}">Basic Data</a>
@@ -50,7 +51,17 @@
                         Transcations
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{route('purchase_invioces_page')}}">Purchse Invioces</a>
+                        <a class="dropdown-item" href="{{route('purchase_invoice_page')}}">Purchase Invioces</a>
+                        <a class="dropdown-item" href="{{route('sale_invioces_page')}}">Sale Invioces</a>
+
+                    </div>
+                </li>
+                <li class="nav-item dropdown active">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Reports
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{route('customer_acc_page')}}">Customer Accounts</a>
 
                     </div>
                 </li>
@@ -83,7 +94,7 @@
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ route('logout') }}"
-                               onclick="Event.preventDefault();
+                               onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
                             </a>
@@ -95,10 +106,6 @@
                     </li>
                 @endguest
             </ul>
-
-
-
-
         </div>
     </nav>
 

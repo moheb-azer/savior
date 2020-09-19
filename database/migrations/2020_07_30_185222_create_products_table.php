@@ -21,7 +21,8 @@ class CreateProductsTable extends Migration
             $table->integer("subcat_id");
             $table->integer("brand_id");
             $table->string("description")->nullable();
-            $table->decimal("sale_price",8,2);
+            $table->float('salePrice',8,2);
+            $table->integer('balance_units');
             $table->timestamps();
             $table->softDeletes();
         });

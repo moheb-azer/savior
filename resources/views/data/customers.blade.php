@@ -27,14 +27,10 @@
                         </div>
                         <div class="modal-body ">
                             <form class="form">
-
-                                    <div id="validation" class="alert alert-danger">
-                                        <ul>
-                                        </ul>
-                                    </div>
-
-
-
+                                <div id="validation" class="alert alert-danger">
+                                    <ul>
+                                    </ul>
+                                </div>
                                 <div class="form-group myid">
                                     <label for="id">id</label>
                                     <input class="form-control" type="text" name="id" id="id" value="" disabled>

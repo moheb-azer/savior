@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class CartController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -20,7 +21,7 @@ class CartController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -39,9 +40,11 @@ class CartController extends Controller
         $name = $request->input('p_name');
         $quantity = $request->input('qty');
         $price = $request->input('price');
+        $salePrice = $request->input('salePrice');
 
         Cart::setGlobalTax(0);
-        $add = Cart::add($id, $name, $quantity, $price);
+        $add = Cart::add($id, $name, $quantity, $price,'0',['salePrice'=> $salePrice]);
+
 
         $details = array(
             'count'  => Cart::count(),
@@ -54,11 +57,13 @@ class CartController extends Controller
 
     }
 
+
+
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -69,7 +74,7 @@ class CartController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id)
     {
@@ -81,7 +86,7 @@ class CartController extends Controller
      *
      * @param Request $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -92,7 +97,7 @@ class CartController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function deleteRow($rowId) {
         Cart::remove($rowId);
@@ -109,4 +114,54 @@ class CartController extends Controller
     {
         //
     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Request $request
+     * @return array
+     */
+    public function storeSale(Request $request)
+    {
+        $id = $request->input('id');
+        $name = $request->input('p_name');
+        $quantity = $request->input('qty');
+        $price = $request->input('salePrice');
+
+        Cart::setGlobalTax(0);
+        $add = Cart::instance('sale')->add($id, $name, $quantity, $price );
+
+
+        $details = array(
+            'count'  => Cart::instance('sale')->count(),
+            'subTotal' => Cart::instance('sale')->subtotal(),
+            'total' => Cart::instance('sale')->total(),
+        );
+
+
+        return compact('details');
+
+    }
+
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param $rowId
+     * @return array
+     */
+    public function deleteRowSale($rowId) {
+        Cart::instance('sale')->remove($rowId);
+        $details = array(
+            'count'  => Cart::instance('sale')->count(),
+            'subTotal' => Cart::instance('sale')->subtotal(),
+            'total' => Cart::instance('sale')->total()
+        );
+
+        return compact('details');
+    }
+
 }
+
+
+

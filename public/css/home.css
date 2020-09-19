@@ -12,6 +12,8 @@ body{
 
 
 }
+
+
 th, td { white-space: nowrap; }
 div.dataTables_wrapper {
     width:100% ;
@@ -36,7 +38,7 @@ div.dataTables_scrollBody {
 /* start scrollbar*/
 /* width */
 *::-webkit-scrollbar {
-    width: 6px !important;
+    width: 10px !important;
 }
 
 /* Track */
@@ -56,3 +58,44 @@ div.dataTables_scrollBody {
     background: #000000 !important;
 }
 /* end scrollbar*/
+
+
+/* customer search list */
+.customer_list{
+    position: absolute !important;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    background-color: white;
+    display:none;
+}
+
+.customer_list_item{
+    display: block;
+
+}
+
+.customer_list_item:hover{
+    background-color: #f7f6f6;
+}
+/* end customer search list */
+
+
+/* supplpier search list */
+.supplier_list{
+    position: absolute !important;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    background-color: white;
+    display:none;
+}
+
+.supplier_list_item{
+    display: block;
+}
+
+.supplier_list_item:hover{
+    background-color: #f7f6f6;
+}
+/* end supplpier search list */

@@ -24,6 +24,7 @@ class CreateInventoriesTable extends Migration
             $table->integer('balance_units');
             $table->float('average_cost',8,2);
             $table->float('balance_cost',8,2);
+            $table->float('salePrice',8,2);
             $table->timestamps();
         });
     }

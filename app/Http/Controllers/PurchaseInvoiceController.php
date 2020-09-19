@@ -7,8 +7,10 @@ use App\PurchasedProducts;
 use App\Inventory;
 use App\PurchaseInvoice;
 use App\Supplier;
+use App\SupplierAccount;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
 
@@ -17,7 +19,7 @@ class PurchaseInvoiceController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return bool
      */
     public function index()
     {
@@ -28,33 +30,38 @@ class PurchaseInvoiceController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return void
      */
     public function create(Request $request)
-    {
-
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
     {
         $cart = Cart::content();
 
         $purchaseInvoice = new PurchaseInvoice();
         $purchaseInvoice->supplier_id = $request->input('id');
         $purchaseInvoice->date = $request->input('date');
-        $purchaseInvoice->total = Cart::total();
+//        $purchaseInvoice->total = Cart::total();
+        $purchaseInvoice->total =$request->input('cash') + $request->input('credit') ;
         $purchaseInvoice->cash = $request->input('cash');
         $purchaseInvoice->credit = $request->input('credit');
-
         $purchaseInvoice->save();
 
+
+
         $invoiceId = $purchaseInvoice->id;
+
+        $supplierAcc = new SupplierAccount();
+        $supplierAcc->s_id = $request->input('id');
+        $supplierAcc->trans_type = "purchase_invoice";
+        $supplierAcc->trans_id = $purchaseInvoice->id;
+        $supplierAcc->date = $request->input('date');
+        $supplierAcc->total = $request->input('cash') + $request->input('credit');
+        $supplierAcc->cash = $request->input('cash');
+        $supplierAcc->credit = $request->input('credit');
+        $supplierAcc->save();
+
+
+
         foreach ($cart as $item) {
             $productId = $item->id;
             $quantity = $item->qty;
@@ -104,18 +111,36 @@ class PurchaseInvoiceController extends Controller
             $transaction->balance_units = $totalQty;
             $transaction->average_cost = $averageCost;
             $transaction->balance_cost = $balance;
+            $transaction->salePrice = $item->options->salePrice;
             $transaction->save();
 
+
+
+            $product = Product::find($productId);
+            $product->salePrice = $item->options->salePrice;
+            $product->balance_units = $totalQty;
+            $product->save();
         }
 
         Cart::destroy();
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function store(Request $request)
+    {
+      //
+    }
+
+    /**
      * Display the specified resource.
      *
-     * @param  \App\PurchaseInvoice  $purchaseInvoice
-     * @return \Illuminate\Http\Response
+     * @param PurchaseInvoice $purchaseInvoice
+     * @return void
      */
     public function show(PurchaseInvoice $purchaseInvoice)
     {
@@ -125,8 +150,8 @@ class PurchaseInvoiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\PurchaseInvoice  $purchaseInvoice
-     * @return \Illuminate\Http\Response
+     * @param PurchaseInvoice $purchaseInvoice
+     * @return void
      */
     public function edit(PurchaseInvoice $purchaseInvoice)
     {
@@ -136,9 +161,9 @@ class PurchaseInvoiceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\PurchaseInvoice  $purchaseInvoice
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param PurchaseInvoice $purchaseInvoice
+     * @return void
      */
     public function update(Request $request, PurchaseInvoice $purchaseInvoice)
     {
@@ -148,15 +173,19 @@ class PurchaseInvoiceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\PurchaseInvoice  $purchaseInvoice
-     * @return \Illuminate\Http\Response
+     * @param PurchaseInvoice $purchaseInvoice
+     * @return void
      */
     public function destroy(PurchaseInvoice $purchaseInvoice)
     {
         //
     }
 
-
+    /**
+     * Update the specified resource in storage.
+     *
+     * @return void
+     */
     public function dataTables() {
 
         $products = DB::table('products')
@@ -171,9 +200,12 @@ class PurchaseInvoiceController extends Controller
 
         foreach($cart as $item) {
             $items[] = array (
+
                 'id' => $item->id,
                 'name' => $item->name,
                 'price' => $item->price,
+                'salePrice' => $item->options->salePrice,
+
                 'qty' => $item->qty,
                 'rowId' => $item->rowId,
                 'subtotal' => $item->subtotal
@@ -188,8 +220,7 @@ class PurchaseInvoiceController extends Controller
     public function searchForSupplier(Request $searchValue)
     {
         if($searchValue['searchValue'] == "") {
-            $empty = "";
-            return $empty;
+            return "";
         } else{
             $suppliers = Supplier::where('s_name','like','%' . $searchValue['searchValue'] . '%')
                 ->orWhere('s_phone1','like','%' . $searchValue['searchValue'] . '%')
