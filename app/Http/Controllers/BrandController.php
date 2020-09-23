@@ -17,7 +17,7 @@ class BrandController extends Controller
     public function index()
     {
         $brands = Brand::all();
-        echo '{"data":'.json_encode($brands).'}';
+        return compact('brands');
     }
 
     /**

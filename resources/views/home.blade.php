@@ -6,9 +6,8 @@
 
 @section('pagecontent')
 
-    <div class="container">
-
-    </div>
+<div class="container" style="height:300px">
+</div>
 
 
 

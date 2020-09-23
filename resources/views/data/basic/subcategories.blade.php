@@ -1,35 +1,73 @@
 @extends('layout')
 
-@section('pageTitle')
-    - Subcategories
-@endsection
+@section('pageTitle', '- Subcategories')
+
+@push('css')
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{ asset('assets/backend/plugins/datatables/dataTables.bootstrap4.css') }}">
+@endpush
 
 @section('pagecontent')
-        <div class="container-fluid">
-
-            <a class="btn btn-success mt-2" href="{{route('categories_page')}}">Categories</a>
-            <a class="btn btn-success mt-2" href="{{route('brands_page')}}">Brands</a>
-
-
-            <h1 class="display-6">Subcategories</h1>
-
-            <!-- Start Modal -->
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary m-1" data-toggle="modal" data-target="#formModal" onclick="clearData()">
-                Add New Subcategory
-            </button>
-
-            <!-- Modal -->
-            <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-scrollable">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+        <!-- Main content -->
+        <section class="content m-5">
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- left column -->
+                    <div class="col-md-12">
+                        <!-- general form elements -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Subcategories LISTS
+                                    <span>
+                                     <a href="" class="btn btn-sm btn-primary float-md-right" data-toggle="modal" data-target="#formModal" >Add New</a>
+                                    <a href="{{ route('products_page') }}" class="btn btn-sm btn-secondary float-md-right mr-1">Back</a>
+                                    </span>
+                                </h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped text-center">
+                                    <thead>
+                                    <tr>
+                                        <th>serial</th>
+                                        <th>Subcategory</th>
+                                        <th>Category</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tfoot>
+                                    <tr>
+                                        <th>serial</th>
+                                        <th>Subcategory</th>
+                                        <th>Category</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
                         </div>
-                        <div class="modal-body ">
-                            <form class="form">
+                        <!-- /.card -->
+                    </div>
+                    <!--/.col (left) -->
+
+                </div>
+                <!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                   <div class="modal-header">
+                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                               <span aria-hidden="true">&times;</span>
+                           </button>
+                       </div>
+                       <div class="modal-body ">
+                           <form class="form">
                                 <div id="validation" class="alert alert-danger">
                                     <ul>
                                     </ul>
@@ -49,44 +87,42 @@
                                 </div>
 
                             </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="clearData()">Close</button>
-                            <button type="button" class="btn btn-primary"
-                                    id="save" onclick="saveData()">Save</button>
-                            <button type="button" class="btn btn-warning"
-                                    id="update" onclick="updateData()"
-                                    data-toggle="modal" data-target="#formModal">update</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End Modal -->
-
-            <div class="row">
-                <div class="col-auto">
-                    <table id="datatable" class="table table-dark table-striped table-hover table-bordered ">
-                        <thead class="thead-light">
-                        <tr>
-                            <th>Id</th>
-                            <th>Subcategory</th>
-                            <th>Category</th>
-                            <th>Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody id="#cont">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
+                       </div>
+                       <div class="modal-footer">
+                           <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="clearData()">Close</button>
+                           <button type="button" class="btn btn-primary"
+                                   id="save" onclick="saveData()">Save</button>
+                           <button type="button" class="btn btn-warning"
+                                   id="update" onclick="updateData()">update</button>
+                       </div>
+                   </div>
+               </div>
+           </div>
+           <!-- End Modal -->
 @endsection
+
+
+
+
+@push('js')
+
+    <!-- DataTables -->
+    <script src="{{ asset('assets/backend/plugins/datatables/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('assets/backend/plugins/datatables/dataTables.bootstrap4.js') }}"></script>
+    <!-- SlimScroll -->
+    <script src="{{ asset('assets/backend/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
+    <!-- FastClick -->
+    <script src="{{ asset('assets/backend/plugins/fastclick/fastclick.js') }}"></script>
+
+    <!-- Sweet Alert Js -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.1/dist/sweetalert2.all.min.js"></script>
+
+@endpush
+
 
 @section('script')
     <script type="text/javascript">
-
-        let dataTable =$('#datatable');
+        let dataTable =$('#example1');
         let modal = $("#formModal");
         let validateAlert =$('#validation').hide();
         let saveBtn =$("#save").show();
@@ -95,13 +131,11 @@
         let form = $('.form');
         let prefCat ="";
 
-
-
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name = "csrf-token"]').attr('content')
             }
-        })
+        });
 
         function clearData() {
             validateAlert.hide();
@@ -110,54 +144,30 @@
             myId.hide();
             form.trigger("reset");
             prefCat ="";
-
         }
 
         $(document).ready(function () {
-            dataTable.DataTable({
-                "ajax":"{{ route('subcategories.index') }}",
+             dataTable.DataTable({
+                "ajax":{
+                    "url": "{{ route('subcategories.index') }}",
+                    "dataSrc": "subcategories"
+                },
                 "columns": [
                     {"data":"id"},
                     {"data":"subcat_name"},
                     {"data":"cat_name"},
-                    {"data":"id", render: function (data, type, row, ) {
-                            return "<button type='button' class='btn ml-4 p-0 ' " +
-                                "onclick='editData("+row.id +")' " +
-                                "data-toggle=\"modal\" data-target=\"#formModal\"><i class=\"far fa-edit \"></i></button>" + "<button type='button' class='btn ml-2 p-0'" +
-                                " onclick='deleteData("+ row.id +")'><i class=\"far fa-trash-alt \"></i></button>";
-                    }},
+                    {"data":"id", render: function (data, type, row) {
+                            return  '<button href="" class="btn btn-info m-1" data-toggle="modal" data-target="#formModal" onclick="editData(' + row.id + ")" + '">'+
+                                    '<i class="fas fa-edit" aria-hidden="true"></i></button>'+
+                                    '<button class="btn btn-danger m-1" type="button" onclick="deleteItem(' + row.id + ")" + '">'+
+                                    '<i class="fa fa-trash" aria-hidden="true"></i></button>'+
+                                    '<form id="delete-form-' + row.id + '" action="" method="post" style="display:none;"></form>';
+                        }},
                 ],
-                //responsive: true,
-                scrollY:        300,
-                scrollX:        true,
-                scrollCollapse: false,
-                columnDefs: [ {
-                    sortable: false,
-                    "class": "index",
-                    targets: 0
-                } ],
-                //order: [[ 1, 'asc' ]],
-                fixedColumns: false,
-                // dom: "Bfrtip",
-                // buttons: [
-                //     // 'excel', 'print','pageLength',
-                //     { "extend": 'excel', "text":'<span>Excel</span>',"className": 'btn btn-success btn-xs m-1 rounded'},
-                //     { "extend": 'pageLength', "text":'<span>pageLength</span>',"className": 'btn btn-primary btn-xs m-1 rounded'},
-                // ],
-                fixedHeader: true,
-                "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]],
-                processing:true,
-                serverSide:false,
-
+                "autoWidth": false
             });
-            // table.on( 'order.dt search.dt', function () {
-            //     table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-            //         cell.innerHTML = i+1;
-            //     } );
-            // } ).draw();
         });
-
-
+        
         function showCat() {
             $.ajax({
                 type : "GET",
@@ -180,7 +190,8 @@
             });
         }
         showCat();
-
+        
+    
         function saveData()     {
             $.ajax({
                 type: "POST",
@@ -205,6 +216,7 @@
         }
 
         function editData(id) {
+
             saveBtn.hide();
             updateBtn.show();
             myId.show();
@@ -217,6 +229,7 @@
                     $('#subcat_name').val(response.subcat_name);
                     prefCat = response.cat_id;
                     showCat();
+
                 }
             });
         }
@@ -228,7 +241,7 @@
                 dataType: "json",
                 data: form.serialize(),
                 url: "/subcategories/"+id,
-                error:function(response,){
+                error:function(response){
                     let row ="";
                     $.each(response.responseJSON.errors,function (key, value) {
                         row += "<li>" + value + "</li>";
@@ -244,19 +257,46 @@
             });
         }
 
-        function deleteData(id){
-            $.ajax({
-                type: "DELETE",
-                dataType: "json",
-                url: "/subcategories/"+id,
-                success: function () {
-                    dataTable.DataTable().ajax.reload(null, false);
-                    clearData();
+        function deleteItem(id) {
+            const swalWithBootstrapButtons = swal.mixin({
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-danger',
+                buttonsStyling: false,
+            })
+
+            swalWithBootstrapButtons({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.value) {
+                    event.preventDefault();
+                    
+                    let url = "subcategories/" + id;
+                    $.ajax({
+                        url: url,
+                        type: "DELETE",
+                        success: function() {
+                            dataTable.DataTable().ajax.reload(null, false);
+                            clearData();
+                        }
+                    })
+                } else if (
+                    // Read more about handling dismissals
+                    result.dismiss === swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons(
+                        'Cancelled',
+                        'Your data is safe :)',
+                        'error'
+                    )
                 }
-            });
+            })
         }
-
-
     </script>
 
 @endsection

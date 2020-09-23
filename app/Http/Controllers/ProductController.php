@@ -27,7 +27,7 @@ class ProductController extends Controller
             ->select('products.id', 'products.p_code','products.p_name', 'products.description',
             'subcategories.subcat_name', 'categories.cat_name', 'brands.brand_name')
             ->get();
-        echo '{"data":'.json_encode($products).'}';
+        return compact('products');
     }
 
     /**

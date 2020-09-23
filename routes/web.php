@@ -21,7 +21,7 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/', function () {
         return view('home');
-    })->middleware('auth');
+    })->name('home_page')->middleware('auth');
 
     Route::get('/customer', function () {
         return view('data.customers');

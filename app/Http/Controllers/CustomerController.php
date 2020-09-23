@@ -16,7 +16,8 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = Customer::all();
-        echo '{"data":'.json_encode($customers).'}';
+        
+        return compact('customers');
     }
 
     /**
@@ -26,7 +27,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+       // 
     }
 
     /**
@@ -136,7 +137,6 @@ class CustomerController extends Controller
     public function destroy($id)
     {
         $customer = Customer::find($id)->delete();
-        return response()->json(['done']);
 
     }
 }

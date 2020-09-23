@@ -16,7 +16,7 @@ class SupplierController extends Controller
     public function index()
     {
         $suppliers = Supplier::all();
-        echo '{"data":'.json_encode($suppliers).'}';
+        return compact('suppliers');
     }
 
     /**

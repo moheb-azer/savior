@@ -21,7 +21,7 @@ class SubcategoryController extends Controller
         $subcategories = DB::table('subcategories')
             ->join('categories', 'categories.id', '=', 'subcategories.cat_id')
             ->select('subcategories.id', 'subcategories.subcat_name','categories.cat_name')->get();
-        echo '{"data":'.json_encode($subcategories).'}';
+        return compact('subcategories');
     }
 
     /**

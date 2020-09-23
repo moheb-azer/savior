@@ -17,138 +17,87 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header clearfix">
-                            <h1 class=" display-6">
-                                New Purchase Invoice
+                            <h3 class="card-title float-left">
+                                Supplier
 {{--                                    <span>--}}
 {{--                                        <a href="" class="btn btn-sm btn-primary float-md-right">Add New</a>--}}
 {{--                                    </span>--}}
-                            </h1>
+                            </h3>
+                            <!-- Start Modal -->
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#formModal" onclick="clearData()">
+                                Add New Supplier
+                            </button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="formModalLabel">New Supplier</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body ">
+                                            <form class="form">
+                                                <div id="validation" class="alert alert-danger">
+                                                    <ul>
+                                                    </ul>
+                                                </div>
+                                                <div class="form-group myid">
+                                                    <label for="s_id">id</label>
+                                                    <input class="form-control" type="text" name="s_id" id="s_id" value="" disabled>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="s_name">Supplier's Nmae</label>
+                                                    <input class="form-control" type="text" name="s_name" id="s_name" value="" >
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="s_phone1">1st Phone No.</label>
+                                                    <input class="form-control" type="text" name="s_phone1" id="s_phone1" value="" >
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="s_phone2">2nd Phone No.</label>
+                                                    <input class="form-control" type="text" name="s_phone2" id="s_phone2" value="" >
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="s_address">Address</label>
+                                                    <input class="form-control" type="text" name="s_address" id="s_address" value="" >
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="s_email">Email</label>
+                                                    <input class="form-control" name="s_email"  id="s_email" >
+                                                </div>
 
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="clearData()">Close</button>
+                                            <button type="button" class="btn btn-primary"
+                                                    id="save" onclick="saveData()">Save</button>
+                                            <button type="button" class="btn btn-warning"
+                                                    id="update" onclick="updateData()">update</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Modal -->
                         </div>
                         <form action="" method="post" id="purchaseForm">
                             @csrf
                             <div class="card-body p-3">
-                                <!-- search for supplier -->
                                 <div class="form-group  ">
                                     <label for="search_value">Supplier Name</label>
-
-                                    <!-- Start Modal -->
-                                    <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-primary float-right m-2" data-toggle="modal" data-target="#formModalSupplier" onclick="clearData()">
-                                        Add New Supplier
-                                    </button>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="formModalSupplier" tabindex="-1" role="dialog" aria-labelledby="formModalSupplier" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-scrollable">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="formModalSupplier">New Supplier</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body ">
-                                                    <form class="form">
-                                                        <div id="" class="alert alert-danger validation">
-                                                            <ul>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="form-group myid">
-                                                            <label for="s_id">id</label>
-                                                            <input class="form-control" type="text" name="s_id" id="s_id" value="" disabled>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="s_name">Supplier's Nmae</label>
-                                                            <input class="form-control" type="text" name="s_name" id="s_name" value="" >
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="s_phone1">1st Phone No.</label>
-                                                            <input class="form-control" type="text" name="s_phone1" id="s_phone1" value="" >
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="s_phone2">2nd Phone No.</label>
-                                                            <input class="form-control" type="text" name="s_phone2" id="s_phone2" value="" >
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="s_address">Address</label>
-                                                            <input class="form-control" type="text" name="s_address" id="s_address" value="" >
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="s_email">Email</label>
-                                                            <input class="form-control" name="s_email"  id="s_email" >
-                                                        </div>
-
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="clearData()">Close</button>
-                                                    <button type="button" class="btn btn-primary"
-                                                            id="save" onclick="saveDataSupplier()">Save</button>
-                                                    <button type="button" class="btn btn-warning"
-                                                            id="update" onclick="updateData()">update</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Modal -->
-
-
-
                                     <input name="supplier_id" id="supplier_id" style="display:none;">
                                     <input name="search_value" id="search_value" class="form-control " placeholder="Search for Supplier Name or Phone Number..." autocomplete="off">
 
                                 </div>
-
-
-
-
-
                                 <div class="supplier_list border rounded mx-3  mt-0 ">
                                 </div>
-                                <div class="form-group mt-0">
+                                <div class="form-group">
                                     <label for="date" >Date</label>
                                     <input type="date" name="date" id="date" class="form-control datepicker-dropdown">
                                 </div>
-
-                                <table id="example2" class="table table-bordered table-striped text-center mb-3 " style="width: 100%;">
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Name</th>
-                                        <th>Qty</th>
-                                        <th>Sale Price</th>
-                                        <th>Price</th>
-                                        <th>Sub Total</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </thead>
-
-                                    <tbody>
-                                    </tbody>
-                                </table>
-
-
-                                {{--                            <div class="sub_qty alert alert-info">--}}
-                                {{--                                <p>Quantity : {{ Cart::count() }}</p>--}}
-                                {{--                                <p>Sub Total : {{ Cart::subtotal() }} LE</p>--}}
-                                {{--                            </div>--}}
-
-                                <div class="total alert alert-success">
-                                    Total : {{ Cart::total() }} LE
-                                </div>
-                                <div class="form-group">
-                                    <h1>Method of payment</h1>
-                                    <label for="cash">cash</label>
-                                    <input name="cash" id="cash" type="text" class="form-control" value="{{ Cart::total(2,'.','') }}">
-                                    <label for="credit">credit</label>
-                                    <input name="credit" id="credit" type="text" class="form-control" disabled>
-                                </div>
-
-
-
-
-
-
                                 <div>
                                     <button type="submit" id="create_invoice" class="btn btn-info float-md-right mb-2 form-control" form="purchaseForm">Create Invoice</button>
 
@@ -159,6 +108,63 @@
                         </form>
 
                     </div>
+
+
+                    <div class="card card-default">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fa fa-info"></i>
+                                Shopping Lists
+
+                            </h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+
+                            <!--
+                            <div class="alert alert-danger">
+                                No Product Added
+                            </div>
+                            -->
+
+                            <table id="example2" class="table table-bordered table-striped text-center mb-3 " style="width: 100%;">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Qty</th>
+                                    <th>Sale Price</th>
+                                    <th>Price</th>
+                                    <th>Sub Total</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                </tbody>
+                            </table>
+
+
+{{--                            <div class="sub_qty alert alert-info">--}}
+{{--                                <p>Quantity : {{ Cart::count() }}</p>--}}
+{{--                                <p>Sub Total : {{ Cart::subtotal() }} LE</p>--}}
+{{--                            </div>--}}
+
+                            <div class="total alert alert-success">
+                                Total : {{ Cart::total() }} LE
+                            </div>
+                            <div class="form-group">
+                                <h1>Method of payment</h1>
+                                <label for="cash">cash</label>
+                                <input name="cash" id="cash" type="text" class="form-control" value="{{ Cart::total(2,'.','') }}">
+                                <label for="credit">credit</label>
+                                <input name="credit" id="credit" type="text" class="form-control" disabled>
+                            </div>
+
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+
                 </div>
 
                 <div class="col-md-6">
@@ -169,23 +175,23 @@
                                 Product list
                             </h3>
                             <div class="float-right">
-                                <button type="button" class="btn btn-primary m-1" data-toggle="modal" data-target="#formModalProduct" onclick="clearData()">
+                                <button type="button" class="btn btn-primary m-1" data-toggle="modal" data-target="#formModal" onclick="clearData()">
                                     Add New Product
                                 </button>
 
                                 <!-- Modal -->
-                                <div class="modal fade" id="formModalProduct" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-scrollable">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="formModalProduct">Product details</h5>
+                                                <h5 class="modal-title" id="formModalLabel">Product details</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body ">
                                                 <form class="form">
-                                                    <div id="" class="alert alert-danger validation">
+                                                    <div id="validation" class="alert alert-danger">
                                                         <ul>
                                                         </ul>
                                                     </div>
@@ -224,8 +230,9 @@
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="clearData()">Close</button>
                                                 <button type="button" class="btn btn-primary"
-                                                        id="save" onclick="saveDataProduct()">Save</button>
-
+                                                        id="save" onclick="saveData()">Save</button>
+                                                <button type="button" class="btn btn-warning"
+                                                        id="update" onclick="updateData()">update</button>
                                             </div>
                                         </div>
                                     </div>
@@ -410,9 +417,7 @@
 
 
         $(document).ready(function() {
-            let total = {{ Cart::total( 2 ,'.','') }};
-            let credit = $('#credit').val(0);
-
+            let total = {{ Cart::total( 2 ,'.','') }}
             // add products to shopping list
             $(document).on("click",".add_cart",function(e) {
                 e.preventDefault();
@@ -438,7 +443,7 @@
                         price.val('');
                         $('#cash').val(response.details.total);
                         total = response.details.total;
-                        credit.val('0');
+                        $('#credit').val('');
                     }
                 });
             });
@@ -459,7 +464,7 @@
                         $(".total").html("Total : " + response.details.total + " LE");
                         $('#cash').val(response.details.total);
                         total = response.details.total;
-                        credit.val('0');
+                        $('#credit').val('');
                     }
                 });
             });
@@ -467,7 +472,7 @@
             $(document).on('change', '#cash', function () {
                 console.log(total);
                 let btotal = total.toString().replace(',' , '');
-                credit.val( btotal - $('#cash').val());
+                $('#credit').val( btotal - $('#cash').val());
             });
             // method of payment
         });
@@ -503,7 +508,7 @@
 
                         searchResult += '<div class="supplier_list_item border-bottom p-2">'+
                             '<div class="id" style="display:none;">' + value.id + '</div>' +
-                            '<div class="name dropdown-item">' + value.s_name + ' , ' + phoneNumbers + '</div>' +
+                            '<div class="name dropdown-item">' + value.s_name + '<br>' + phoneNumbers + '</div>' +
                             '</div>';
 
                         suppliers.html(searchResult);
@@ -576,7 +581,7 @@
 {{--        New Product functions--}}
         let dataTable = $('#productTable');
         let modal = $("#formModal");
-        let validateAlert =$('.validation').hide();
+        let validateAlert =$('#validation').hide();
         let saveBtn =$("#save").show();
         let updateBtn= $("#update").hide();
         let myId = $('.myid').hide();
@@ -692,7 +697,7 @@
         showBrand();
 
 
-        function saveDataProduct()     {
+        function saveData()     {
             $.ajax({
                 type: "POST",
                 dataType: "json",
@@ -715,27 +720,5 @@
             });
         }
 
-        function saveDataSupplier()     {
-            $.ajax({
-                type: "POST",
-                dataType: "json",
-                data: form.serialize(),
-                url: "/suppliers",
-                error:function(response,){
-                    let row ="";
-                    $.each(response.responseJSON.errors,function (key, value) {
-                        row += "<li>" + value + "</li>";
-                    });
-                    validateAlert.html(row);
-                    validateAlert.show();
-                },
-                success: function() {
-                    dataTable.DataTable().ajax.reload(null, false);
-                    modal.modal('hide');
-                    clearData();
-
-                }
-            });
-        }
     </script>
 @endsection

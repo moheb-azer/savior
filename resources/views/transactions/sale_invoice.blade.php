@@ -18,7 +18,7 @@
                     <div class="card">
                         <div class="card-header clearfix">
                             <h3 class="card-title float-left">
-                                New Sale Invoice
+                                Customer
 
                             </h3>
 
@@ -27,68 +27,7 @@
                             @csrf
                             <div class="card-body p-3">
                                 <div class="form-group  ">
-                                    <label for="search_value" class="float-left">Customer Name</label>
-                                    <!-- Start Modal -->
-                                    <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-primary m-1 float-right"
-                                            data-toggle="modal" data-target="#formModal" onclick="clearData()">
-                                        Add New Customer
-                                    </button>
-
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-scrollable">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="formModalLabel">Customer's Data</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body ">
-                                                    <form class="form">
-                                                        <div id="validation" class="alert alert-danger">
-                                                            <ul>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="form-group myid">
-                                                            <label for="id">id</label>
-                                                            <input class="form-control" type="text" name="id" id="id" value="" disabled>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="c_name">Customer's Name</label>
-                                                            <input class="form-control" type="text" name="c_name" id="c_name" value="" required>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="c_phone1">1st Phone No.</label>
-                                                            <input class="form-control" type="text" name="c_phone1" id="c_phone1" value="" >
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="c_phone2">2nd Phone No.</label>
-                                                            <input class="form-control" type="text" name="c_phone2" id="c_phone2" value="" >
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="c_address">Address</label>
-                                                            <input class="form-control" type="text" name="c_address" id="c_address" value="" >
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="c_email">Email</label>
-                                                            <input class="form-control" name="c_email"  id="c_email" >
-                                                        </div>
-
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="clearData()">Close</button>
-                                                    <button type="button" class="btn btn-primary"
-                                                            id="save" onclick="saveData()">Save</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Modal -->
-
-
+                                    <label for="search_value">Customer Name</label>
                                     <input name="customer_id" id="customer_id" style="display:none;">
                                     <input name="search_value" id="search_value" class="form-control " placeholder="Search for Customer Name or Phone Number..." autocomplete="off">
 
@@ -98,32 +37,6 @@
                                 <div class="form-group">
                                     <label for="date" >Date</label>
                                     <input type="date" name="date" id="date" class="form-control datepicker-dropdown">
-                                </div>
-                                <table id="example3" class="table table-bordered table-striped text-center mb-3 " style="width: 100%;">
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Product</th>
-                                        <th>Qty</th>
-                                        <th>Sale Price</th>
-                                        <th>Sub Total</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-
-                                </table>
-
-                                <div class="total alert alert-success">
-                                    Total : {{ Cart::instance('sale')->total() }} LE
-                                </div>
-                                <div class="form-group">
-                                    <h1>Method of payment</h1>
-                                    <label for="cash">cash</label>
-                                    <input name="cash" id="cash" type="text" class="form-control" value="{{ Cart::instance('sale')->total(2,'.','') }}">
-                                    <label for="credit">credit</label>
-                                    <input name="credit" id="credit" type="text" class="form-control" disabled>
                                 </div>
                                 <div>
                                     <button type="submit" id="create_invoice" class="btn btn-info float-md-right mb-2 form-control" form="purchaseForm">Create Invoice</button>
@@ -137,7 +50,59 @@
                     </div>
 
 
+                    <div class="card card-default">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fa fa-info"></i>
+                                Shopping Lists
+                            </h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
 
+                            <!--
+                            <div class="alert alert-danger">
+                                No Product Added
+                            </div>
+                            -->
+
+                            <table id="example3" class="table table-bordered table-striped text-center mb-3 " style="width: 100%;">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Product</th>
+                                    <th>Qty</th>
+                                    <th>Sale Price</th>
+                                    <th>Sub Total</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                </tbody>
+
+                            </table>
+
+
+                            {{--                            <div class="sub_qty alert alert-info">--}}
+                            {{--                                <p>Quantity : {{ Cart::count() }}</p>--}}
+                            {{--                                <p>Sub Total : {{ Cart::subtotal() }} LE</p>--}}
+                            {{--                            </div>--}}
+
+                            <div class="total alert alert-success">
+                                Total : {{ Cart::instance('sale')->total() }} LE
+                            </div>
+                            <div class="form-group">
+                                <h1>Method of payment</h1>
+                                <label for="cash">cash</label>
+                                <input name="cash" id="cash" type="text" class="form-control" value="{{ Cart::instance('sale')->total(2,'.','') }}">
+                                <label for="credit">credit</label>
+                                <input name="credit" id="credit" type="text" class="form-control" disabled>
+                            </div>
+
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
 
                 </div>
 
@@ -277,6 +242,27 @@
                 "scrollX": true,
                 "retrieve": true,
 
+
+                initComplete: function () {
+                    this.api().columns().every( function () {
+                        let column = this;
+                        let select = $('<select><option value=""></option></select>')
+                            .appendTo( $(column.footer()).empty() )
+                            .on( 'change', function () {
+                                let val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
+
+                                column
+                                    .search( val ? '^'+val+'$' : '', true, false )
+                                    .draw();
+                            } );
+
+                        column.data().unique().sort().each( function ( d ) {
+                            select.append( '<option value="'+d+'">'+d+'</option>' )
+                        } );
+                    } );
+                }
             });
 
 
@@ -328,8 +314,7 @@
 
 
         $(document).ready(function() {
-            let total = {{ Cart::instance('sale')->total( 2 ,'.','') }};
-            let credit = $('#credit').val(0);
+            let total = {{ Cart::instance('sale')->total( 2 ,'.','') }}
                 // add products to shopping list
                 $(document).on("click",".add_cart",function(e) {
                     e.preventDefault();
@@ -354,7 +339,7 @@
                             // salePrice.val('');
                             $('#cash').val(response.details.total);
                             total = response.details.total;
-                            credit.val('0');
+                            $('#credit').val('');
                         }
                     });
                 });
@@ -375,7 +360,7 @@
                         $(".total").html("Total : " + response.details.total + " LE");
                         $('#cash').val(response.details.total);
                         total = response.details.total;
-                        credit.val('0');
+                        $('#credit').val('');
                     }
                 });
             });
@@ -383,7 +368,7 @@
             $(document).on('change', '#cash', function () {
                 console.log(total);
                 let btotal = total.replace(',' , '');
-                credit.val( btotal - $('#cash').val());
+                $('#credit').val( btotal - $('#cash').val());
             });
             // method of payment
         });
@@ -490,50 +475,6 @@
 
 
 
-    </script>
-
-    <script>
-
-
-        let modal = $("#formModal");
-        let validateAlert =$('#validation').hide();
-        let saveBtn =$("#save").show();
-        let updateBtn= $("#update").hide();
-        let myId = $('.myid').hide();
-        let form = $('.form');
-
-        function clearData() {
-            validateAlert.hide();
-            saveBtn.show();
-            updateBtn.hide();
-            myId.hide();
-            form.trigger("reset");
-
-        }
-
-
-        function saveData()     {
-            $.ajax({
-                type: "POST",
-                dataType: "json",
-                data: form.serialize(),
-                url: "/customers",
-                error:function(response,){
-                    let row ="";
-                    $.each(response.responseJSON.errors,function (key, value) {
-                        row += "<li>" + value + "</li>";
-                    });
-                    validateAlert.html(row);
-                    validateAlert.show();
-                },
-                success: function() {
-                    dataTable.DataTable().ajax.reload(null, false);
-                    modal.modal('hide');
-                    clearData();
-
-                }
-            });
-        }
     </script>
 
 

@@ -17,7 +17,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        echo '{"data":'.json_encode($categories).'}';
+        return compact('categories');
     }
 
     /**

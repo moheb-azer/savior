@@ -1,110 +1,148 @@
 @extends('layout')
 
-@section('pageTitle')
-    - Suppliers
-@endsection
+@section('pageTitle', '- Suppliers')
+
+@push('css')
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{ asset('assets/backend/plugins/datatables/dataTables.bootstrap4.css') }}">
+@endpush
 
 @section('pagecontent')
-        <div class="container-fluid">
-
-            <h1 class="display-6">Suppliers</h1>
-
-            <!-- Start Modal -->
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary m-1" data-toggle="modal" data-target="#formModal" onclick="clearData()">
-                Add New Supplier
-            </button>
-
-            <!-- Modal -->
-            <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-scrollable">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="formModalLabel">Supplier's Data</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+        <!-- Main content -->
+        <section class="content m-5">
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- left column -->
+                    <div class="col-md-12">
+                        <!-- general form elements -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">SUPPLIERS LISTS
+                                    <span>
+                                     <a href="" class="btn btn-sm btn-primary float-md-right" data-toggle="modal" data-target="#formModal" >Add New</a>
+                                    </span>
+                                </h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped text-center">
+                                    <thead>
+                                    <tr>
+                                        <th>Serial</th>
+                                        <th>Supplier Name</th>
+                                        <th>Phone1</th>
+                                        <th>Phone2</th>
+                                        <th>Address</th>
+                                        <th>Email</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tfoot>
+                                    <tr>
+                                        <th>Serial</th>
+                                        <th>Supplier Name</th>
+                                        <th>Phone1</th>
+                                        <th>Phone2</th>
+                                        <th>Address</th>
+                                        <th>Email</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
                         </div>
-                        <div class="modal-body ">
-                            <form class="form">
-
-                                    <div id="validation" class="alert alert-danger">
-                                        <ul>
-                                        </ul>
-                                    </div>
-
-
-
-                                <div class="form-group myid">
-                                    <label for="id">id</label>
-                                    <input class="form-control" type="text" name="id" id="id" value="" disabled>
-                                </div>
-                                <div class="form-group">
-                                    <label for="s_name">Supplier's Nmae</label>
-                                    <input class="form-control" type="text" name="s_name" id="s_name" value="" >
-                                </div>
-                                <div class="form-group">
-                                    <label for="s_phone1">1st Phone No.</label>
-                                    <input class="form-control" type="text" name="s_phone1" id="s_phone1" value="" >
-                                </div>
-                                <div class="form-group">
-                                    <label for="s_phone2">2nd Phone No.</label>
-                                    <input class="form-control" type="text" name="s_phone2" id="s_phone2" value="" >
-                                </div>
-                                <div class="form-group">
-                                    <label for="s_address">Address</label>
-                                    <input class="form-control" type="text" name="s_address" id="s_address" value="" >
-                                </div>
-                                <div class="form-group">
-                                    <label for="s_email">Email</label>
-                                    <input class="form-control" name="s_email"  id="s_email" >
-                                </div>
-
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="clearData()">Close</button>
-                            <button type="button" class="btn btn-primary"
-                                    id="save" onclick="saveData()">Save</button>
-                            <button type="button" class="btn btn-warning"
-                                    id="update" onclick="updateData()">update</button>
-                        </div>
+                        <!-- /.card -->
                     </div>
-                </div>
-            </div>
-            <!-- End Modal -->
+                    <!--/.col (left) -->
 
-            <div class="row">
-                <div class="col-auto">
-                    <table id="datatable" class="table table-dark table-striped table-hover table-bordered ">
-                        <thead class="thead-light">
-                        <tr>
-                            <th>#</th>
-                            <th>Supplier's Nmae</th>
-                            <th>1st Phone No.</th>
-                            <th>2nd Phone No.</th>
-                            <th>Address</th>
-                            <th>Email</th>
-{{--                            <th>Balance</th>--}}
-                            <th>Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody id="#cont">
-                        </tbody>
-                    </table>
                 </div>
-            </div>
-        </div>
+                <!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
 
+        <!-- Modal -->
+        <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                   <div class="modal-header">
+                           <h5 class="modal-title" id="formModalLabel">Supplier's Data</h5>
+                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                               <span aria-hidden="true">&times;</span>
+                           </button>
+                       </div>
+                       <div class="modal-body ">
+                           <form class="form">
+                                   <div id="validation" class="alert alert-danger">
+                                       <ul>
+                                       </ul>
+                                   </div>
+                               <div class="form-group myid">
+                                   <label for="id">id</label>
+                                   <input class="form-control" type="text" name="id" id="id" value="" disabled>
+                               </div>
+                               <div class="form-group">
+                                   <label for="s_name">Supplier's Name</label>
+                                   <input class="form-control" type="text" name="s_name" id="s_name" value="" required>
+                               </div>
+                               <div class="form-group">
+                                   <label for="s_phone1">1st Phone No.</label>
+                                   <input class="form-control" type="text" name="s_phone1" id="s_phone1" value="" >
+                               </div>
+                               <div class="form-group">
+                                   <label for="s_phone2">2nd Phone No.</label>
+                                   <input class="form-control" type="text" name="s_phone2" id="s_phone2" value="" >
+                               </div>
+                               <div class="form-group">
+                                   <label for="s_address">Address</label>
+                                   <input class="form-control" type="text" name="s_address" id="s_address" value="" >
+                               </div>
+                               <div class="form-group">
+                                   <label for="s_email">Email</label>
+                                   <input class="form-control" name="s_email"  id="s_email" >
+                               </div>
+
+                           </form>
+                       </div>
+                       <div class="modal-footer">
+                           <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="clearData()">Close</button>
+                           <button type="button" class="btn btn-primary"
+                                   id="save" onclick="saveData()">Save</button>
+                           <button type="button" class="btn btn-warning"
+                                   id="update" onclick="updateData()">update</button>
+                       </div>
+                   </div>
+               </div>
+           </div>
+           <!-- End Modal -->
 @endsection
+
+
+
+
+@push('js')
+
+    <!-- DataTables -->
+    <script src="{{ asset('assets/backend/plugins/datatables/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('assets/backend/plugins/datatables/dataTables.bootstrap4.js') }}"></script>
+    <!-- SlimScroll -->
+    <script src="{{ asset('assets/backend/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
+    <!-- FastClick -->
+    <script src="{{ asset('assets/backend/plugins/fastclick/fastclick.js') }}"></script>
+
+    <!-- Sweet Alert Js -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.1/dist/sweetalert2.all.min.js"></script>
+
+@endpush
+
 
 @section('script')
     <script type="text/javascript">
-
-        let dataTable = $('#datatable');
+        let dataTable = $('#example1');
         let modal = $("#formModal");
-        let validateAlert =$('#validation').hide();
-        let saveBtn =$("#save").show();
+        let validateAlert = $('#validation').hide();
+        let saveBtn = $("#save").show();
         let updateBtn= $("#update").hide();
         let myId = $('.myid').hide();
         let form = $('.form');
@@ -113,10 +151,10 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name = "csrf-token"]').attr('content')
             }
-        })
+        });
 
         function clearData() {
-
+            validateAlert.hide();
             saveBtn.show();
             updateBtn.hide();
             myId.hide();
@@ -125,8 +163,11 @@
         }
 
         $(document).ready(function () {
-            let table = dataTable.DataTable({
-                "ajax":"{{ route('suppliers.index') }}",
+             dataTable.DataTable({
+                "ajax":{
+                    "url": "{{ route('suppliers.index') }}",
+                    "dataSrc": "suppliers"
+                },
                 "columns": [
                     {"data":"id"},
                     {"data":"s_name"},
@@ -134,36 +175,16 @@
                     {"data":"s_phone2"},
                     {"data":"s_address"},
                     {"data":"s_email"},
-                    // {"data":""},
                     {"data":"id", render: function (data, type, row) {
-                            return "<button type='button' class='btn ml-4 p-0 ' " +
-                                "onclick='editData("+row.id +")' " +
-                                "data-toggle=\"modal\" data-target=\"#formModal\"><i class=\"far fa-edit \"></i></button>"
-                                + "<button type='button' class='btn ml-2 p-0'" +
-                                " onclick='deleteData("+ row.id +")'><i class=\"far fa-trash-alt \"></i></button>";
+                            return  '<button class="btn btn-info m-1" data-toggle="modal" data-target="#formModal" onclick="editData(' + row.id + ")" + '">'+
+                                    '<i class="fas fa-edit" aria-hidden="true"></i></button>'+
+                                    '<button class="btn btn-danger m-1" type="button" onclick="deleteItem(' + row.id + ")" + '">'+
+                                    '<i class="fa fa-trash" aria-hidden="true"></i></button>'+
+                                    '<form id="delete-form-' + row.id + '" action="" method="post" style="display:none;"></form>';
                         }},
                 ],
-                //responsive: true,
-                scrollY:        true,
-                scrollX:        true,
-                scrollCollapse: false,
-
-                dom: "Bfrtip",
-                buttons: [
-                    // 'excel', 'print','pageLength',
-                    { "extend": 'excel', "text":'<span>Excel</span>',"className": 'btn btn-success btn-xs m-1 rounded'},
-                    { "extend": 'pageLength', "text":'<span>pageLength</span>',"className": 'btn btn-primary btn-xs m-1 rounded'},
-                ],
-                fixedHeader: true,
-                "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]],
-                processing:true,
-                serverSide:false,
+                "autoWidth": false
             });
-            table.on( 'order.dt search.dt', function () {
-                table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-                    cell.innerHTML = i+1;
-                });
-            }).draw();
         });
 
         function saveData()     {
@@ -190,6 +211,7 @@
         }
 
         function editData(id) {
+
             saveBtn.hide();
             updateBtn.show();
             myId.show();
@@ -216,7 +238,7 @@
                 dataType: "json",
                 data: form.serialize(),
                 url: "/suppliers/"+id,
-                error:function(response,){
+                error:function(response){
                     let row ="";
                     $.each(response.responseJSON.errors,function (key, value) {
                         row += "<li>" + value + "</li>";
@@ -232,19 +254,45 @@
             });
         }
 
-        function deleteData(id){
-            let result = confirm("Want to delete?");
-            if (result) {
-                $.ajax({
-                    type: "DELETE",
-                    dataType: "json",
-                    url: "/suppliers/" + id,
-                    success: function () {
-                        dataTable.DataTable().ajax.reload(null, false);
-                        clearData();
-                    }
-                });
-            }
+        function deleteItem(id) {
+            const swalWithBootstrapButtons = swal.mixin({
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-danger',
+                buttonsStyling: false,
+            })
+
+            swalWithBootstrapButtons({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.value) {
+                    event.preventDefault();
+//                    document.getElementById('delete-form-'+id).submit();
+                    let url = "suppliers/" + id;
+                    $.ajax({
+                        url: url,
+                        type: "DELETE",
+                        success: function() {
+                            dataTable.DataTable().ajax.reload(null, false);
+                            clearData();
+                        }
+                    })
+                } else if (
+                    // Read more about handling dismissals
+                    result.dismiss === swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons(
+                        'Cancelled',
+                        'Your data is safe :)',
+                        'error'
+                    )
+                }
+            })
         }
     </script>
 
