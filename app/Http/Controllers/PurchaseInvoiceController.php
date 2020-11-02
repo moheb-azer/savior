@@ -194,6 +194,7 @@ class PurchaseInvoiceController extends Controller
             ->join('brands', 'brands.id', '=', 'products.brand_id')
             ->select('products.id', 'products.p_code','products.p_name', 'products.description',
                 'subcategories.subcat_name', 'categories.cat_name', 'brands.brand_name')
+			->where('products.deleted_at', '=', NULL)
             ->get();
         $cart = Cart::content();
         $items = array();

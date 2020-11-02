@@ -19,7 +19,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">CUSTOMERS LISTS
                                     <span>
-                                     <a href="" class="btn btn-sm btn-primary float-md-right" data-toggle="modal" data-target="#formModal" >Add New</a>
+                                     <a href="" class="btn btn-sm btn-primary float-md-right" data-toggle="modal" data-target="#formModal" onclick="clearData()" >Add New</a>
                                     </span>
                                 </h3>
                             </div>
@@ -211,7 +211,6 @@
         }
 
         function editData(id) {
-
             saveBtn.hide();
             updateBtn.show();
             myId.show();

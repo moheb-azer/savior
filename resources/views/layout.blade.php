@@ -11,13 +11,14 @@
     <link rel="stylesheet" href="{{ asset('/datatable/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/fontawesome/css/all.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Markazi+Text:wght@900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('/css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/backend/css/adminlte.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/backend/css/backend.css') }}">
 
     <script src="{{ asset('/js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('/js/popper.min.js') }}"></script>
     <script src="{{ asset('/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('/datatable/datatables.min.js') }}"></script>
+    <script src="{{ asset('assets/backend/js/backend.js') }}"></script>
 
     @stack('css')
     @stack('js')
@@ -37,8 +38,8 @@
                 <a class="dropdown-item" href="{{route('customers_page')}}" style="color:black !important;" style="color:black !important;">Customers</a>
                 <a class="dropdown-item" href="{{route('suppliers_page')}}" style="color:black !important;">Suppliers</a>
                 <a class="dropdown-item" href="{{route('products_page') }}" style="color:black !important;">Products</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{{route('categories_page')}}" style="color:black !important;">Basic Data</a>
+{{--                <div class="dropdown-divider"></div>--}}
+{{--                <a class="dropdown-item" href="{{route('categories_page')}}" style="color:black !important;">Basic Data</a>--}}
             </div>
         </li>
         <li class="nav-item dropdown active">
@@ -48,6 +49,9 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="{{route('purchase_invoice_page')}}" style="color:black !important;">Purchase Invioces</a>
                 <a class="dropdown-item" href="{{route('sale_invioces_page')}}" style="color:black !important;">Sale Invioces</a>
+                <a class="dropdown-item" href="{{route('collections_page')}}" style="color:black !important;">Collections</a>
+                <a class="dropdown-item" href="{{route('payments_page')}}" style="color:black !important;">Payments</a>
+                <a class="dropdown-item" href="{{route('expenses_page')}}" style="color:black !important;">Expenses</a>
             </div>
         </li>
         <li class="nav-item dropdown active">

@@ -63,14 +63,29 @@ Route::group(['middleware' => 'auth'], function() {
         return view('reports.customer_acc');
     })->name('customer_acc_page');
 
+	Route::get('/collection', function () {
+        return view('transactions.collections');
+    })->name('collections_page');
+	
+	Route::get('/payment', function () {
+        return view('transactions.payments');
+    })->name('payments_page');
+	
+	Route::get('/expense_item', function () {
+        return view('transactions.expense_items');
+    })->name('expense_items_page');
+	
+	Route::get('/expense', function () {
+        return view('transactions.expenses');
+    })->name('expenses_page');
 
 
-
-    /* start reports */
-
-    /* end reports */
 
     /* start ajax crud routes */
+	
+    /* start reports */
+    Route::resource('/customer_accounts', 'CustomerAccountController');
+    /* end reports */
 
     Route::resource('/customers', 'CustomerController');
 
@@ -84,13 +99,19 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::resource('/products', 'ProductController');
 
-
-
+	Route::resource('/collections', 'CollectionController');
+	
+	Route::resource('/payments', 'PaymentController');
+	
+	Route::resource('/expense_items', 'ExpenseItemController');
+	
+	Route::resource('/expenses', 'ExpenseController');
 
 
     Route::get('/cat/show', 'SubcategoryController@show')->name('show_cat');
     Route::get('/subcat/show', 'ProductController@subcategory')->name('show_subcat');
     Route::get('/brand/show', 'ProductController@brand')->name('show_brand');
+    Route::get('/item/show', 'ExpenseController@show')->name('show_item');
 //    Route::get('/invoice/show_customer', 'InvoiceController@showCustomer')->name('show_customer');
 //    Route::get('/invoice/show_supplier', 'InvoiceController@showSupplier')->name('show_supplier');
 //    Route::get('/invoice/show_product', 'InvoiceController@showProduct')->name('show_product');
@@ -118,8 +139,6 @@ Route::group(['middleware' => 'auth'], function() {
 
     /* sale invoice */
 
-    /* reports */
-    Route::resource('/customer_accounts', 'CustomerAccountController');
 
 
 });

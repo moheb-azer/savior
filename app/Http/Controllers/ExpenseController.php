@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
-use App\Subcategory;
+use App\Expense;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class SubcategoryController extends Controller
+class ExpenseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,12 +17,12 @@ class SubcategoryController extends Controller
      */
     public function index()
     {
-        $subcategories = DB::table('subcategories')
-            ->join('categories', 'categories.id', '=', 'subcategories.cat_id')
-            ->select('subcategories.id', 'subcategories.subcat_name','categories.cat_name')
-			->where('subcategories.deleted_at', '=', NULL)
+        $expenses = DB::table('expenses')
+            ->join('expense_items', 'expense_items.id', '=', 'expenses.item_id')
+            ->select('expenses.*', 'expense_items.item_name')
+			->where('expenses.deleted_at', '=', NULL)
 			->get();
-        return compact('subcategories');
+        return compact('expenses');
     }
 
     /**
@@ -46,11 +45,9 @@ class SubcategoryController extends Controller
     {
         if ($request->ajax()){
             $request->validate([
-                'subcat_name'=> 'required',
-                'cat_id'=> 'required',
             ]);}
-        $subcategory = Subcategory::create($request->all());
-        return response()->json($subcategory);
+        $expense = Expense::create($request->all());
+        return response()->json($expense);
     }
 
     /**
@@ -59,10 +56,10 @@ class SubcategoryController extends Controller
      * @param \App\Subcategory $subcategory
      * @return JsonResponse
      */
-    public function show(Subcategory $subcategory)
+    public function show(Expense $expense)
     {
-        $cats = Category::all();
-        return response()->json($cats);
+        $items = DB::table('expense_items')->get();
+        return response()->json($items);
 
     }
 

@@ -56,11 +56,11 @@ class CustomerAccountController extends Controller
      * @param  \App\CustomerAccount  $customerAccount
      * @return Application|Factory|View
      */
-    public function show(CustomerAccount $customerAccount)
+    public function show($id)
     {
 
-        $accounts = CustomerAccount::where('c_id', '=', $customerAccount['id'] )->get();
-        $customer = Customer::find($customerAccount['id']);
+        $accounts = CustomerAccount::where('c_id', '=', $id)->get();
+        $customer = Customer::find($id);
         return view('reports.customer_acc_details', compact('accounts','customer'));
     }
 

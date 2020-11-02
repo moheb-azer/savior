@@ -26,6 +26,7 @@ class ProductController extends Controller
             ->join('brands', 'brands.id', '=', 'products.brand_id')
             ->select('products.id', 'products.p_code','products.p_name', 'products.description',
             'subcategories.subcat_name', 'categories.cat_name', 'brands.brand_name')
+			->where('products.deleted_at', '=', NULL)
             ->get();
         return compact('products');
     }
@@ -51,11 +52,12 @@ class ProductController extends Controller
 
         if ($request->ajax()){
             request()->validate([
-                'p_code'=> 'required|regex:/^([0-9\s\-\+\(\)]*)$/',
+                'p_code'=> 'required|unique:products|regex:/^([0-9\s\-\+\(\)]*)$/',
                 'p_name'=> 'required',
                 'cat_id'=> 'required',
             ],[
                 'p_code.required'=>'Code is required',
+				'p_code.unique'=>'Code Must Be Unique',
                 'p_code.regex'=>'Code should be Digits only "0-9" ',
                 'p_name.required'=>'Product\'s Name is required',
                 'cat_id.required' => 'Category & Subcategory are required ',
