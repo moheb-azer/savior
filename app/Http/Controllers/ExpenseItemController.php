@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
-use App\Subcategory;
-use Illuminate\Support\Facades\DB;
+use App\ExpenseItem;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class SubcategoryController extends Controller
+class ExpenseItemController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,18 +16,14 @@ class SubcategoryController extends Controller
      */
     public function index()
     {
-        $subcategories = DB::table('subcategories')
-            ->join('categories', 'categories.id', '=', 'subcategories.cat_id')
-            ->select('subcategories.id', 'subcategories.subcat_name','categories.cat_name')
-			->where('subcategories.deleted_at', '=', NULL)
-			->get();
-        return compact('subcategories');
+        $items = ExpenseItem::all();
+        return compact('items');
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return JsonResponse
+     * @return Response
      */
     public function create()
     {
@@ -46,36 +40,34 @@ class SubcategoryController extends Controller
     {
         if ($request->ajax()){
             $request->validate([
-                'subcat_name'=> 'required',
-                'cat_id'=> 'required',
+                'item_name'=> 'required',
+
             ]);}
-        $subcategory = Subcategory::create($request->all());
-        return response()->json($subcategory);
+        $item = ExpenseItem::create($request->all());
+        return response()->json($item);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param \App\Subcategory $subcategory
-     * @return JsonResponse
+     * @param \App\ExpenseItem $item
+     * @return void
      */
-    public function show(Subcategory $subcategory)
+    public function show(Item $item)
     {
-        $cats = Category::all();
-        return response()->json($cats);
-
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param $id
+     * @param ExpenseItem $id
      * @return JsonResponse
      */
     public function edit($id)
     {
-        $subcategory = Subcategory::find($id);
-        return response()->json($subcategory);
+        $item = ExpenseItem::find($id);
+        return response()->json($item);
     }
 
     /**
@@ -85,21 +77,21 @@ class SubcategoryController extends Controller
      * @param $id
      * @return JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
-        $subcategory = Subcategory::find($id)->update($request->all());
-        return response()->json($subcategory);
+        $item = ExpenseItem::find($id)->update($request->all());
+        return response()->json($item);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param $id
+     * @param ExpenseItem $id
      * @return JsonResponse
      */
     public function destroy($id)
     {
-        $subcategory = Subcategory::find($id)->delete();
+        $item = ExpenseItem::find($id)->delete();
         return response()->json(['done']);
     }
 }

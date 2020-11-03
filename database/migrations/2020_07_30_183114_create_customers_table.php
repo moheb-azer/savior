@@ -20,7 +20,7 @@ class CreateCustomersTable extends Migration
             $table->string("c_phone2",11)->nullable();
             $table->string("c_address",255)->nullable();
             $table->string("c_email",255)->nullable();
-            $table->float('credit', 8,2);
+            $table->float('credit', 8,2)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

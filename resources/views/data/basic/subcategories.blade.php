@@ -19,8 +19,11 @@
                             <div class="card-header">
                                 <h3 class="card-title">Subcategories LISTS
                                     <span>
-                                     <a href="" class="btn btn-sm btn-primary float-md-right" data-toggle="modal" data-target="#formModal" >Add New</a>
-                                    <a href="{{ route('products_page') }}" class="btn btn-sm btn-secondary float-md-right mr-1">Back</a>
+                                     <a href="" class="btn btn-sm btn-primary float-md-right" data-toggle="modal" data-target="#formModal" onclick="clearData()">Add New</a>
+									 <a class="btn btn-sm btn-success mr-1" href="{{route('categories_page')}}">Categories</a>
+									 <a class="btn btn-sm btn-success mr-1" href="{{route('subcategories_page')}}">Subcategories</a>
+									 <a class="btn btn-sm btn-success mr-1" href="{{route('brands_page')}}">Brands</a>
+									 <a href="{{ route('products_page') }}" class="btn btn-sm btn-secondary float-md-right mr-1">Back</a>
                                     </span>
                                 </h3>
                             </div>

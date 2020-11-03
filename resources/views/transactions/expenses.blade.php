@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('pageTitle', '- Brands')
+@section('pageTitle', '- Expenses')
 
 @push('css')
     <!-- DataTables -->
@@ -17,13 +17,10 @@
                         <!-- general form elements -->
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Brands LISTS
+                                <h3 class="card-title">Expenses LISTS
                                     <span>
-                                     <a href="" class="btn btn-sm btn-primary float-md-right" data-toggle="modal" data-target="#formModal" onclick="clearData()" >Add New</a>
-									 <a class="btn btn-sm btn-success mr-1" href="{{route('categories_page')}}">Categories</a>
-                                     <a class="btn btn-sm btn-success mr-1" href="{{route('subcategories_page')}}">Subcategories</a>
-                                     <a class="btn btn-sm btn-success mr-1" href="{{route('brands_page')}}">Brands</a>
-                                     <a href="{{ route('products_page') }}" class="btn btn-sm btn-secondary float-md-right mr-1">Back</a>
+                                     <a href="" class="btn btn-sm btn-primary float-md-right" data-toggle="modal" data-target="#formModal" onclick="clearData()">New Expense</a>
+									 <a href="{{ route('expense_items_page') }}" class="btn btn-sm btn-success mr-1">Items</a>
                                     </span>
                                 </h3>
                             </div>
@@ -32,15 +29,17 @@
                                 <table id="example1" class="table table-bordered table-striped text-center">
                                     <thead>
                                     <tr>
-                                        <th>serial</th>
-                                        <th>Brand Name</th>
+                                        <th>Item Name</th>
+                                        <th>Description</th>
+                                        <th>Amount</th>
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
                                     <tfoot>
                                     <tr>
-                                        <th>serial</th>
-                                        <th>Brand Name</th>
+                                        <th>Item Name</th>
+                                        <th>Description</th>
+                                        <th>Amount</th>
                                         <th>Actions</th>
                                     </tr>
                                     </tfoot>
@@ -57,44 +56,49 @@
             </div><!-- /.container-fluid -->
         </section>
         <!-- /.content -->
-
-        <!-- Modal -->
-        <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable">
-                <div class="modal-content">
-                   <div class="modal-header">
-                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                               <span aria-hidden="true">&times;</span>
-                           </button>
-                       </div>
-                       <div class="modal-body ">
-                           <form class="form">
-                                <div id="validation" class="alert alert-danger">
-                                    <ul>
-                                    </ul>
-                                </div>
-                                <div class="form-group myid">
-                                    <label for="id">id</label>
-                                    <input class="form-control" type="text" name="id" id="id" value="" disabled>
-                                </div>
-                                <div class="form-group">
-                                    <label for="brand_name"> Brand Name</label>
-                                    <input class="form-control" type="text" name="brand_name" id="brand_name" value="" >
-                                </div>
-
-                            </form>
-                       </div>
-                       <div class="modal-footer">
-                           <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="clearData()">Close</button>
-                           <button type="button" class="btn btn-primary"
-                                   id="save" onclick="saveData()">Save</button>
-                           <button type="button" class="btn btn-warning"
-                                   id="update" onclick="updateData()">update</button>
-                       </div>
-                   </div>
-               </div>
-           </div>
-           <!-- End Modal -->
+		<!--payment modal -->
+		<div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">
+							New Expense 	<!-- Modal Title* -->
+						</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form>
+							<div id="validation" class="alert alert-danger" style="display:none;"></div>
+							<div class="form-row">
+								<div class="form-group col-md">
+                                   	<label for="item_id">Item</label>
+                                   	<select class="form-control" type="text" name="item_id" id="item_id">
+                                   	</select>
+                               	</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-9">
+									<label for="description">Description</label>
+									<input type="text" class="form-control" name="description">
+								</div>
+								<div class="form-group col-md">
+									<label for="amount">Amount</label>
+									<input type="number" name="amount" id="amount" class="form-control pay" placeholder="0.00">
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-success" id="save" onclick="saveData()"><i class="fas fa-sm fa-credit-card"></i>Submit Expense</button>
+						<button type="button" class="btn btn-warning" id="update" onclick="updateData()">Edit</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--/.payment modal -->
 @endsection
 
 
@@ -118,13 +122,14 @@
 
 @section('script')
     <script type="text/javascript">
-        let dataTable = $('#example1');
+        let dataTable =$('#example1');
         let modal = $("#formModal");
         let validateAlert =$('#validation').hide();
         let saveBtn =$("#save").show();
         let updateBtn= $("#update").hide();
         let myId = $('.myid').hide();
-        let form = $('.form');
+        let form = $('form');
+        let prefCat ="";
 
         $.ajaxSetup({
             headers: {
@@ -138,18 +143,19 @@
             updateBtn.hide();
             myId.hide();
             form.trigger("reset");
-
+            prefCat ="";
         }
 
         $(document).ready(function () {
              dataTable.DataTable({
                 "ajax":{
-                    "url": "{{ route('brands.index') }}",
-                    "dataSrc": "brands"
+                    "url": "{{ route('expenses.index') }}",
+                    "dataSrc": "expenses"
                 },
                 "columns": [
-                    {"data":"id"},
-                    {"data":"brand_name"},
+                    {"data":"item_name"},
+                    {"data":"description"},
+                    {"data":"amount"},
                     {"data":"id", render: function (data, type, row) {
                             return  '<button href="" class="btn btn-info m-1" data-toggle="modal" data-target="#formModal" onclick="editData(' + row.id + ")" + '">'+
                                     '<i class="fas fa-edit" aria-hidden="true"></i></button>'+
@@ -161,13 +167,37 @@
                 "autoWidth": false
             });
         });
-
-        function saveData()     {
+        
+        function showItem() {
+            $.ajax({
+                type : "GET",
+                dataType: "json",
+                url: "{{ route('show_item') }}",
+                success: function(response) { 
+                    let items ="";
+                    $.each(response, function (key, value) {
+                        items += "<option value='";
+                        items += value.id ;
+                        items += "'";
+                        if (prefCat === value.id) {items += "selected";}
+                        items += ">";
+                        items += value.item_name ;
+                        items += "</option>" ;
+                    });
+                    $('#item_id').html(items);
+                }
+            });
+        }
+        showItem();
+        
+    
+        function saveData() {
+			console.log(form.serialize())
             $.ajax({
                 type: "POST",
                 dataType: "json",
                 data: form.serialize(),
-                url: "/brands",
+                url: "/expenses",
                 error:function(response,){
                     let row ="";
                     $.each(response.responseJSON.errors,function (key, value) {
@@ -193,10 +223,12 @@
             $.ajax({
                 type: "GET",
                 dataType: "json",
-                url: "/brands/"+id+"/edit",
+                url: "/subcategories/"+id+"/edit",
                 success: function (response) {
                     $('#id').val(response.id);
-                    $('#brand_name').val(response.brand_name);
+                    $('#subcat_name').val(response.subcat_name);
+                    prefCat = response.item_id;
+                    showCat();
 
                 }
             });
@@ -208,7 +240,7 @@
                 type: "PUT",
                 dataType: "json",
                 data: form.serialize(),
-                url: "/brands/"+id,
+                url: "/subcategories/"+id,
                 error:function(response){
                     let row ="";
                     $.each(response.responseJSON.errors,function (key, value) {
@@ -244,7 +276,7 @@
                 if (result.value) {
                     event.preventDefault();
                     
-                    let url = "brands/" + id;
+                    let url = "subcategories/" + id;
                     $.ajax({
                         url: url,
                         type: "DELETE",

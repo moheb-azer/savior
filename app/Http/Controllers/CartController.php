@@ -42,16 +42,17 @@ class CartController extends Controller
         $price = $request->input('price');
         $salePrice = $request->input('salePrice');
 
-        Cart::setGlobalTax(0);
-        $add = Cart::add($id, $name, $quantity, $price,'0',['salePrice'=> $salePrice]);
+        if(!empty($price) && !empty($salePrice)) {
+            Cart::setGlobalTax(0);
+            $add = Cart::add($id, $name, $quantity, $price,'0',['salePrice'=> $salePrice]);
 
 
-        $details = array(
-            'count'  => Cart::count(),
-            'subTotal' => Cart::subtotal(),
-            'total' => Cart::total(),
-        );
-
+            $details = array(
+                'count'  => Cart::count(),
+                'subTotal' => Cart::subtotal(),
+                'total' => Cart::total(),
+            );
+        }
 
         return compact('details');
 

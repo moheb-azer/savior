@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('pageTitle')
-    - customer account details
+    - customer Account Details
 @endsection
 
 @push('css')
@@ -20,6 +20,7 @@
                             <h3 class="card-title float-left">
                                 Customer Account Details
                             </h3>
+                            <a class="btn btn-primary float-right" href="{{route('customer_acc_page')}}">Back</a>
 
                         </div>
                         <div class="card-body p-3">

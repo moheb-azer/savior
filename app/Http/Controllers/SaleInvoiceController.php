@@ -113,7 +113,7 @@ class SaleInvoiceController extends Controller
 
                 $balance = $lastBalance - $totalCost;
                 $totalQty = $stockQuantity - $quantity;
-                $averageCost = $balance / $totalQty;
+//                $averageCost = $balance / $totalQty;
             }
             $transaction = new Inventory();
             $transaction->p_id =  $productId;
@@ -123,7 +123,7 @@ class SaleInvoiceController extends Controller
             $transaction->unit_cost = $lastAverageCost;
             $transaction->total_cost = $totalCost;
             $transaction->balance_units = $totalQty;
-            $transaction->average_cost = $averageCost;
+            $transaction->average_cost = $lastAverageCost;
             $transaction->balance_cost = $balance;
             $transaction->salePrice = $item->price;
 
@@ -197,9 +197,11 @@ class SaleInvoiceController extends Controller
             ->join('subcategories', 'subcategories.id', '=', 'products.subcat_id')
             ->join('categories', 'categories.id', '=', 'subcategories.cat_id')
             ->join('brands', 'brands.id', '=', 'products.brand_id')
+//            ->join('inventories','inventories.p_id', '=', 'products.id')->latest('inventories.created_at')->limit(1)
+            
             ->select('products.id', 'products.p_code', 'products.p_name', 'products.description',
                  'subcategories.subcat_name', 'categories.cat_name', 'brands.brand_name',
-                 'products.salePrice', 'products.balance_units')
+                'inventories.salePrice', 'inventories.balance_units')
             ->get();
 
 //        dd($products);

@@ -20,6 +20,7 @@ class CreateSuppliersTable extends Migration
             $table->string("s_phone2",11)->nullable();
             $table->string("s_address",255)->nullable();
             $table->string("s_email",255)->nullable();
+			$table->float('credit', 8,2)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

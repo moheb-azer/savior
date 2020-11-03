@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('pageTitle', '- Brands')
+@section('pageTitle', '- Expense Items')
 
 @push('css')
     <!-- DataTables -->
@@ -17,13 +17,10 @@
                         <!-- general form elements -->
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Brands LISTS
+                                <h3 class="card-title">Expense Items LISTS
                                     <span>
                                      <a href="" class="btn btn-sm btn-primary float-md-right" data-toggle="modal" data-target="#formModal" onclick="clearData()" >Add New</a>
-									 <a class="btn btn-sm btn-success mr-1" href="{{route('categories_page')}}">Categories</a>
-                                     <a class="btn btn-sm btn-success mr-1" href="{{route('subcategories_page')}}">Subcategories</a>
-                                     <a class="btn btn-sm btn-success mr-1" href="{{route('brands_page')}}">Brands</a>
-                                     <a href="{{ route('products_page') }}" class="btn btn-sm btn-secondary float-md-right mr-1">Back</a>
+                                     <a href="{{ route('expenses_page') }}" class="btn btn-sm btn-secondary float-md-right mr-1">Back</a>
                                     </span>
                                 </h3>
                             </div>
@@ -33,14 +30,14 @@
                                     <thead>
                                     <tr>
                                         <th>serial</th>
-                                        <th>Brand Name</th>
+                                        <th>Expense Item Name</th>
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
                                     <tfoot>
                                     <tr>
                                         <th>serial</th>
-                                        <th>Brand Name</th>
+                                        <th>Expense Item Name</th>
                                         <th>Actions</th>
                                     </tr>
                                     </tfoot>
@@ -78,8 +75,8 @@
                                     <input class="form-control" type="text" name="id" id="id" value="" disabled>
                                 </div>
                                 <div class="form-group">
-                                    <label for="brand_name"> Brand Name</label>
-                                    <input class="form-control" type="text" name="brand_name" id="brand_name" value="" >
+                                    <label for="item_name"> Expense Item Name</label>
+                                    <input class="form-control" type="text" name="item_name" id="item_name" value="" >
                                 </div>
 
                             </form>
@@ -144,12 +141,12 @@
         $(document).ready(function () {
              dataTable.DataTable({
                 "ajax":{
-                    "url": "{{ route('brands.index') }}",
-                    "dataSrc": "brands"
+                    "url": "{{ route('expense_items.index') }}",
+                    "dataSrc": "items"
                 },
                 "columns": [
                     {"data":"id"},
-                    {"data":"brand_name"},
+                    {"data":"item_name"},
                     {"data":"id", render: function (data, type, row) {
                             return  '<button href="" class="btn btn-info m-1" data-toggle="modal" data-target="#formModal" onclick="editData(' + row.id + ")" + '">'+
                                     '<i class="fas fa-edit" aria-hidden="true"></i></button>'+
@@ -167,7 +164,7 @@
                 type: "POST",
                 dataType: "json",
                 data: form.serialize(),
-                url: "/brands",
+                url: "/expense_items",
                 error:function(response,){
                     let row ="";
                     $.each(response.responseJSON.errors,function (key, value) {
@@ -193,10 +190,10 @@
             $.ajax({
                 type: "GET",
                 dataType: "json",
-                url: "/brands/"+id+"/edit",
+                url: "/expense_items/"+id+"/edit",
                 success: function (response) {
                     $('#id').val(response.id);
-                    $('#brand_name').val(response.brand_name);
+                    $('#item_name').val(response.item_name);
 
                 }
             });
@@ -208,7 +205,7 @@
                 type: "PUT",
                 dataType: "json",
                 data: form.serialize(),
-                url: "/brands/"+id,
+                url: "/expense_items/"+id,
                 error:function(response){
                     let row ="";
                     $.each(response.responseJSON.errors,function (key, value) {
@@ -244,7 +241,7 @@
                 if (result.value) {
                     event.preventDefault();
                     
-                    let url = "brands/" + id;
+                    let url = "expense_items/" + id;
                     $.ajax({
                         url: url,
                         type: "DELETE",
