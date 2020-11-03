@@ -45,7 +45,11 @@ class ExpenseController extends Controller
     {
         if ($request->ajax()){
             $request->validate([
-            ]);}
+				"amount" => "required"
+            ],[
+				"amount.required" =>"Enter The Amount"
+			]
+			);}
         $expense = Expense::create($request->all());
         return response()->json($expense);
     }

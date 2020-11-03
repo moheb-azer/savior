@@ -70,7 +70,7 @@
 					</div>
 					<div class="modal-body">
 						<form>
-							<ul id="validation" class="alert alert-danger" style="display:none;"></ul>
+							<div id="validation" class="alert alert-danger" style="display:none;"></div>
 							<div class="form-row">
 								<div class="form-group col-md">
                                    	<label for="item_id">Item</label>
@@ -85,7 +85,7 @@
 								</div>
 								<div class="form-group col-md">
 									<label for="amount">Amount</label>
-									<input type="number" name="amount" id="amount" class="form-control pay" placeholder="0.00" required>
+									<input type="number" name="amount" id="amount" class="form-control pay" placeholder="0.00">
 								</div>
 							</div>
 						</form>
